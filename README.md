@@ -6,7 +6,7 @@ da installare, pronto per essere pubblicato come sito statico.
 
 Progetto amatoriale, non affiliato alla RAI.
 
-![Anteprima del simulatore](./og-image.png)
+![Anteprima del simulatore](./new-image.png)
 
 Demo online: `https://<nome-progetto>.pages.dev` (aggiorna questo link dopo la pubblicazione su Cloudflare Pages)
 
