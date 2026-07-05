@@ -8,7 +8,7 @@ Progetto amatoriale, non affiliato ad alcuna emittente o format televisivo.
 
 ![Anteprima del simulatore](./new-image.png)
 
-Lo trovi online: `https://colpo-di-busta.pages.dev` 
+Lo trovi online: `[https://colpo-di-busta.pages.dev](https://colpo-di-busta.axel0689.workers.dev/)` 
 
 ## Caratteristiche
 
