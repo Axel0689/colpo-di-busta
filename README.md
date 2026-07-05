@@ -8,7 +8,7 @@ Progetto amatoriale, non affiliato ad alcuna emittente o format televisivo.
 
 ![Anteprima del simulatore](./new-image.png)
 
-Demo online: `https://<nome-progetto>.pages.dev` (aggiorna questo link dopo la pubblicazione su Cloudflare Pages)
+Lo trovi online: `https://colpo-di-busta.pages.dev` 
 
 ## Caratteristiche
 
