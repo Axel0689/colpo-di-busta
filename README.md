@@ -1,14 +1,15 @@
 # Colpo di Busta · Simulatore Strategico
 
 Gioco originale ispirato ai classici giochi a premi basati sulla scelta tra
-buste sigillate. Un solo file HTML, nessuna dipendenza esterna da
-installare, pronto per essere pubblicato come sito statico.
+buste sigillate. Un solo file HTML, nessun pacchetto da installare, pronto
+per essere pubblicato come sito statico (l'unica risorsa esterna è il
+font caricato da Google Fonts).
 
 Progetto amatoriale, non affiliato ad alcuna emittente o format televisivo.
 
 ![Anteprima del simulatore](./new-image.png)
 
-Lo trovi online: [Colpo di Busta](https://colpo-di-busta.axel0689.workers.dev/)
+Demo online: `https://<nome-progetto>.pages.dev` (aggiorna questo link dopo la pubblicazione su Cloudflare Pages)
 
 ## Caratteristiche
 
@@ -52,6 +53,7 @@ favicon.svg            icona principale
 favicon-32.png         icona di riserva per i browser meno recenti
 apple-touch-icon.png    icona per la schermata Home su iOS
 og-image.png            anteprima per social e chat
+_headers                header di sicurezza (CSP e affini) per Cloudflare Pages
 DEPLOY.md               istruzioni dettagliate per Cloudflare Pages
 ```
 

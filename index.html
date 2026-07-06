@@ -1151,7 +1151,6 @@
 
     <!-- Palco centrale -->
     <section class="stage">
-      <div class="grid" id="grid" aria-label="Buste in studio"></div>
       <div class="bench">
         <div id="benchPack"></div>
         <div class="bench-info">
@@ -1160,6 +1159,7 @@
             fine.</p>
         </div>
       </div>
+      <div class="grid" id="grid" aria-label="Buste in studio"></div>
     </section>
 
     <!-- Pannello premi rossi -->
@@ -1203,6 +1203,22 @@
       <p
         style="text-align:center;font-style:italic;color:var(--muted);font-size:13px;margin-top:-6px;margin-bottom:4px;">
         Progetto amatoriale non affiliato ad alcuna emittente.</p>
+      <h3>Regole del gioco</h3>
+      <p>In studio ci sono <strong>20 buste numerate</strong>, ognuna con un premio nascosto: alcuni bassi, altri
+        molto alti. Una busta speciale, la <strong>Busta Nera</strong>, ha un contenuto segreto anche per il Notaio
+        finché non viene aperta.</p>
+      <p>1. <strong>Scegli una busta</strong>: sarà la tua per tutta la partita, non la apri subito.</p>
+      <p>2. <strong>Apri le altre buste</strong>, un gruppo alla volta: ogni apertura elimina un premio dal
+        tabellone, e aiuta a capire (in media) quanto può valere la busta che tieni in mano.</p>
+      <p>3. Tra un gruppo di aperture e l'altro, <strong>chiama il Notaio</strong>: propone un'offerta in denaro per
+        ritirarti subito, oppure - a seconda della variante - il cambio con un'altra busta rimasta in studio. Puoi
+        sempre <strong>rifiutare</strong> e continuare a giocare.</p>
+      <p>4. Se arrivi alla fine con la tua busta, ne scopri il contenuto: se resta un premio molto basso (da 1 a 49
+        €), viene comunque portato a un <strong>minimo garantito di 50 €</strong>.</p>
+      <p>5. Se rinunci alla busta invece di tenerla o cambiarla, giochi la finalissima <strong>"La Regione
+          Vincente"</strong>, un minigioco a indovinelli in due turni.</p>
+      <p>In parallelo si gioca anche <strong>"Trova il Fortunello"</strong>: se tra le prime buste chiamate emerge
+        quella giusta, vinci un jackpot che cresce di partita in partita finché qualcuno non lo trova.</p>
       <h3>Chi l'ha creato</h3>
       <p>Simulatore ideato e sviluppato da <strong>Alessandro Bagnuoli</strong>, un gioco originale ispirato ai
         classici giochi a premi basati sulla scelta tra buste sigillate.</p>
@@ -1491,7 +1507,7 @@
       const bump = el => { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); };
       const p = $('statPacks'), e = $('statEV'), j = $('statJackpot');
       p.textContent = packsLeft();
-      e.textContent = fmt(Math.round(evValue() * 100) / 100);
+      e.textContent = S.phase === 'select' ? '—' : fmt(Math.round(evValue() * 100) / 100);
       j.textContent = fmt(JACKPOT);
       bump(p); bump(e);
     }
@@ -1510,7 +1526,7 @@
         S.round = 0;
         S.toOpen = SCHEDULE[0];
         sfx.select();
-        renderGrid(); renderBench();
+        renderGrid(); renderBench(); renderMonitor();
         setMsg(`Hai scelto la <strong>busta ${n}</strong>. Ora apri <strong>${S.toOpen} buste</strong>.`);
         return;
       }
