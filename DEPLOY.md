@@ -1,15 +1,18 @@
 # Pubblicare su Cloudflare Pages
 
 Questa cartella contiene tutto il necessario: `index.html`, la favicon
-(`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`) e l'immagine di
-anteprima per social e chat (`og-image.png`). Nessun passaggio di build:
-sono file statici pronti da servire.
+(`favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`), l'immagine di
+anteprima per social e chat (`og-image.png`) e il file `_headers` con gli
+header di sicurezza (CSP e affini). Nessun passaggio di build: sono file
+statici pronti da servire. Cloudflare Pages legge automaticamente
+`_headers` e applica quelle regole a ogni risposta, senza bisogno di
+configurazione aggiuntiva.
 
 ## Percorso 1: caricamento diretto (più rapido, senza Git)
 
 1. Vai su [pages.cloudflare.com](https://pages.cloudflare.com) e accedi (o crea un account gratuito).
 2. Scegli "Upload assets" (o "Create a project" e poi "Direct Upload").
-3. Trascina l'intera cartella con questi 5 file.
+3. Trascina l'intera cartella con questi file, incluso `_headers`.
 4. Conferma il nome del progetto: diventerà `<nome>.pages.dev`.
 5. Il sito è online in pochi secondi, con HTTPS già attivo.
 

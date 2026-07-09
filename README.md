@@ -20,7 +20,7 @@ Demo online: `https://<nome-progetto>.pages.dev` (aggiorna questo link dopo la p
 5. Minigioco "La Regione Vincente" nella finalissima, con due turni di indovinelli.
 6. "Trova il Fortunello", con jackpot progressivo tra una partita e l'altra.
 7. Tema chiaro e scuro, con contrasto calibrato su entrambi.
-8. Effetti sonori generati in tempo reale con la Web Audio API, senza file audio esterni.
+8. Effetti sonori campionati (mp3) per i momenti chiave, con fallback automatico a un suono generato in tempo reale con la Web Audio API se un file non è disponibile.
 
 ## Eseguirlo in locale
 
@@ -49,6 +49,7 @@ come cartella di output. Da quel momento ogni push aggiorna il sito online.
 
 ```
 index.html            gioco completo (HTML, CSS e JavaScript)
+audio/                 effetti sonori mp3 (select, apertura buste, Notaio, esito partita)
 favicon.svg            icona principale
 favicon-32.png         icona di riserva per i browser meno recenti
 apple-touch-icon.png    icona per la schermata Home su iOS
@@ -57,11 +58,21 @@ _headers                header di sicurezza (CSP e affini) per Cloudflare Pages
 DEPLOY.md               istruzioni dettagliate per Cloudflare Pages
 ```
 
+### Effetti sonori
+
+I file in `audio/` sono richiamati per nome dal codice (`select.mp3`,
+`open-blue.mp3`, `open-red.mp3`, `open-nero.mp3`, `card-flip.mp3`,
+`jackpot.mp3`, `phone-ring.mp3`, `win.mp3`, `lose.mp3`). Se uno di questi
+file manca o non riesce a caricarsi, il gioco ricade automaticamente sul
+suono sintetizzato equivalente: nessun errore visibile, nessuna
+configurazione da cambiare.
+
 ## Stack tecnico
 
 HTML5, CSS3 (variabili personalizzate per il tema chiaro e scuro,
-animazioni) e JavaScript, senza framework né librerie esterne. Web Audio API
-per il motore sonoro, Canvas 2D per l'effetto coriandoli.
+animazioni) e JavaScript, senza framework né librerie esterne. Effetti
+sonori mp3 con fallback alla Web Audio API, Canvas 2D per l'effetto
+coriandoli.
 
 ## Crediti
 

@@ -63,6 +63,9 @@
       --glow-1: rgba(245, 197, 66, .07);
       --glow-2: rgba(255, 138, 61, .06);
       --glow-3: rgba(53, 208, 127, .06);
+      --gold-glow: rgba(245, 197, 66, .55);
+      --blue-glow: rgba(255, 138, 61, .5);
+      --red-glow: rgba(53, 208, 127, .55);
       --shadow-soft: rgba(0, 0, 0, .45);
       --shadow-strong: rgba(0, 0, 0, .6);
       --radius: 14px;
@@ -94,6 +97,9 @@
       --glow-1: rgba(168, 118, 10, .08);
       --glow-2: rgba(200, 89, 15, .06);
       --glow-3: rgba(31, 157, 85, .06);
+      --gold-glow: rgba(168, 118, 10, .45);
+      --blue-glow: rgba(200, 89, 15, .4);
+      --red-glow: rgba(31, 157, 85, .45);
       --shadow-soft: rgba(30, 30, 50, .14);
       --shadow-strong: rgba(30, 30, 50, .22);
       color-scheme: light;
@@ -664,17 +670,17 @@
 
     .reveal-card .amount.b {
       color: var(--blue);
-      text-shadow: 0 0 34px rgba(58, 123, 255, .5)
+      text-shadow: 0 0 34px var(--blue-glow)
     }
 
     .reveal-card .amount.r {
       color: var(--red);
-      text-shadow: 0 0 34px rgba(255, 46, 77, .55)
+      text-shadow: 0 0 34px var(--red-glow)
     }
 
     .reveal-card .amount.g {
       color: var(--gold);
-      text-shadow: 0 0 34px rgba(245, 197, 66, .55)
+      text-shadow: 0 0 34px var(--gold-glow)
     }
 
     @keyframes pop {
@@ -925,7 +931,7 @@
 
     .reveal-card .amount.nero {
       color: var(--gold);
-      text-shadow: 0 0 30px rgba(245, 197, 66, .4)
+      text-shadow: 0 0 30px var(--gold-glow)
     }
 
     .reveal-card .who.nero-label {
@@ -1353,7 +1359,7 @@
       } catch (e) { /* audio non disponibile: il gioco prosegue in silenzio */ }
     }
 
-    const sfx = {
+    const synth = {
       select() { tone({ f: 660, d: .12, type: 'triangle' }); tone({ f: 990, t: .09, d: .14, type: 'triangle', g: .12 }); },
       blue() { tone({ f: 220, d: .35, type: 'sawtooth', g: .16, slide: 110 }); tone({ f: 110, t: .05, d: .45, g: .2, slide: 65 }); },
       red() {
@@ -1376,6 +1382,46 @@
       },
       lose() { [392, 330, 262, 196].forEach((f, i) => tone({ f, t: i * .24, d: .45, g: .11 })); }
     };
+
+    /* ============================================================
+       CAMPIONI AUDIO (mp3): se un file manca o non carica, si ricade
+       automaticamente sul suono sintetizzato corrispondente in `synth`.
+       ============================================================ */
+    const SAMPLE_FILES = {
+      select: 'select.mp3',
+      blue: 'open-blue.mp3',
+      red: 'open-red.mp3',
+      nero: 'open-nero.mp3',
+      cardFlip: 'card-flip.mp3',
+      jackpot: 'jackpot.mp3',
+      phone: 'phone-ring.mp3',
+      win: 'win.mp3',
+      lose: 'lose.mp3'
+    };
+    const samples = {};
+    Object.entries(SAMPLE_FILES).forEach(([key, file]) => {
+      const a = new Audio('audio/' + file);
+      a.preload = 'auto';
+      a.dataset.ready = 'pending';
+      a.addEventListener('canplaythrough', () => { a.dataset.ready = 'yes'; }, { once: true });
+      a.addEventListener('error', () => { a.dataset.ready = 'no'; }, { once: true });
+      samples[key] = a;
+    });
+
+    function playSample(key) {
+      const a = samples[key];
+      if (!a || a.dataset.ready === 'no') return false;
+      try {
+        a.currentTime = 0;
+        a.play().catch(() => { });
+        return true;
+      } catch (e) { return false; }
+    }
+
+    const sfx = {};
+    Object.keys(synth).forEach(key => {
+      sfx[key] = (...args) => { if (!playSample(key)) synth[key](...args); };
+    });
 
     /* ============================================================
        STATO DI GIOCO
